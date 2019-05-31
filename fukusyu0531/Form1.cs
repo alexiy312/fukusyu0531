@@ -32,7 +32,7 @@ namespace fukusyu0531
             label2.Left = p.X - label2.Width / 2;
             label2.Top = p.Y - label2.Height / 2;
 
-            if ((label1.Left >= p.X) && (label1.Right >= p.X) && (label1.Top >= p.Y) && (label1.Bottom >= p.Y))
+            if ((label1.Left <= p.X) && (label1.Right >= p.X) && (label1.Top <= p.Y) && (label1.Bottom >= p.Y))
             {
                 label1.Visible = false;
             }
