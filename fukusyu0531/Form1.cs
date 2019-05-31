@@ -14,77 +14,60 @@ namespace fukusyu0531
     {
         int vx = -10;
         int vy = -10;
-        int x2 = -10, x3 = 5, x4 = -7;
-        int y2 = 10, y3 = -5, y4 = -7;
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             label1.Left += vx;
             label1.Top += vy;
+            
+            Text = MousePosition.X + ", " + MousePosition.Y;
+            //マウスポジションをクライアント座標に置き換える
+            Point p = PointToClient(MousePosition);
 
-            if (label1.Left > this.Width-50)
-                vx = -vx;
+            label2.Left = p.X - label2.Width / 2;
+            label2.Top = p.Y - label2.Height / 2;
+
+            if ((label1.Left >= p.X) && (label1.Right >= p.X) && (label1.Top >= p.Y) && (label1.Bottom >= p.Y))
+            {
+                label1.Visible = false;
+            }
+            else
+            {
+                label1.Visible = true;
+            }
+
+
+            if (label1.Left > ClientSize.Width - label1.Width)
+            {
+                //Math.Abs()  絶対値
+                //vx = -vx だけだと画面外に行ったときに戻ってこれない
+                vx = -Math.Abs(vx);
+            }
             if (label1.Left < 0)
-                vx = -vx;
-            if (label1.Top > this.Height-50)
-                vy = -vy;
+            {
+                vx = Math.Abs(vx);
+            }
+            if (label1.Top > ClientSize.Height - label1.Height)
+            {
+                vy = -Math.Abs(vy);
+            }
             if (label1.Top < 0)
-                vy = -vy;
+            {
+                vy = Math.Abs(vy);
+            }
 
-            label2.Left += x2;
-            label2.Top += y2;
-
-            if (label2.Left > this.Width - 50)
-                x2 = -x2;
-            if (label2.Left < 0)
-                x2 = -x2;
-            if (label2.Top > this.Height - 50)
-                y2 = -y2;
-            if (label2.Top < 0)
-                y2 = -y2;
-
-            label3.Left += x3;
-            label3.Top += y3;
-
-            if (label3.Left > this.Width - 50)
-                x3 = -x3;
-            if (label3.Left < 0)
-                x3 = -x3;
-            if (label3.Top > this.Height - 50)
-                y3 = -y3;
-            if (label3.Top < 0)
-                y3 = -y3;
-
-            label4.Left += x4;
-            label4.Top += y4;
-
-            if (label4.Left > this.Width - 50)
-                x4 = -x4;
-            if (label4.Left < 0)
-                x4 = -x4;
-            if (label4.Top > this.Height - 50)
-                y4 = -y4;
-            if (label4.Top < 0)
-                y4 = -y4;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            MessageBox.Show("" + ClientSize.Width + ", " + ClientSize.Height);
+            MessageBox.Show("" + label1.Width + ", " + label1.Height);
 
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
 
         }
     }
